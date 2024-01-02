@@ -1,0 +1,28 @@
+version: "3.5"
+services:
+  mockserver:
+    container_name: mockserver
+    build:
+      context: ./mockserver
+    ports:
+      - "9001:9001"
+    volumes:
+        - ./mockserver/data:/opt/data
+    networks:
+        frontend:
+  mssql:
+    container_name: mssql
+    build:
+      context: ./mssql
+    volumes:
+          - ./mssql:/opt/data
+    ports:
+        - "1433:1433"
+    environment:
+        - ACCEPT_EULA=Y
+        - MSSQL_SA_PASSWORD=YourPassword123!
+        - MSSQL_PID=Developer
+    networks:
+        frontend:
+networks:
+  frontend:
